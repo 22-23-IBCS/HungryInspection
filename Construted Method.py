@@ -1,43 +1,52 @@
 
 class Vehicle:
-    
-    #constructure method. Needed to define how
+
+    #constructor method. Needed to define how
     #the class instances are created
-    def __init__(self, b, c):
+    def __init__(self, b, col):
         self.numWheels = 4
         self.brand = b
-        self.col = c
+        self.color = col
+
 
     def getBrand(self):
         return self.brand
 
-    def setBrand(self,b):
+    def setBrand(self, b):
+        self.container = 5
         self.brand = b
 
+class Truck(Vehicle):
 
-    def getCol(self):
-        return self.col
-    
-    def setCol(self, c):
-        self.col = c
+    def __init__(self, b, col):
+        self.load = 5
+        super().__init__(b, col)
 
+    def unload(self):
+        self.load = 0
 
+    def addload(self):
+        self.load += 1
 
-
-
+    def getLoad(self):
+        return self.load
 
 
 def main():
+    #print("Hello World")
 
-    veh1 = Vehicle("Mama", "red")
+    print("Hey welcome to the car creator look at this new car it is...")
+    
+    veh1 = Vehicle("Toyota", "blue")
     b = veh1.getBrand()
     print(b)
-
-    veh1.setBrand("Honda")
-    print(veh1.getBrand())
-
-    veh1.setCol("Blue")
-    print(veh1.getCol())
+    T = Truck("Ford", "Red")
+    print(T.getBrand())
+    T.unload()
+    for i in range(4):
+        T.addload()
+    print(T.getLoad())
+    
 
 if __name__ == "__main__":
     main()
