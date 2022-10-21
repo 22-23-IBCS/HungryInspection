@@ -93,9 +93,7 @@ def main():
                         candy_val = []
                         for i in range(len(your_neighbor)):
                             neighbor = your_neighbor[i]  # [(x, y), (x, y), (x, y)]
-                            # print("n " + str(neighbor))
-                            candy_val.append(
-                                matrix[neighbor[0]][neighbor[1]].get_candy())  # access the value of each location
+                            candy_val.append(matrix[neighbor[0]][neighbor[1]].get_candy())  # access the value of each location
                 print("BBB " + str(your_neighbor))
                 print("C " + str(candy_val))
                 print("\n")
@@ -105,10 +103,10 @@ def main():
                 for i in range(len(your_neighbor)):
                     if candy_val[i] == highest_candy:
                         nei_location = your_neighbor[i]
-                total_path.append(nei_location)
                 total_candy.append(highest_candy)
                 x, y = nei_location
                 new_location = (x, y)
+                total_path.append(new_location)
             print("New location: " + str(new_location))
             print("Total path: " + str(total_path))
             print("Most candy = " + str(highest_candy))
