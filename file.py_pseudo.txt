@@ -1,0 +1,22 @@
+
+
+
+
+SET lst TO []
+
+SET fact TO 1
+
+FOR i IN range(1,11):
+
+    SET fact TO 1
+
+    FOR n IN range(1,i+1):
+
+        SET fact TO fact*n
+
+    lst.append(fact)
+
+
+
+OUTPUT(sorted(lst))
+
