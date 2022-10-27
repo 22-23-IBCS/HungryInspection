@@ -1,13 +1,5 @@
 from House import House
 
-'''
-issue: 
-- identify the location of the neighbor with most candy
-- index issue with candy_val
-- not choosing houses that already went
-'''
-
-
 def get_neighbor(x, y):
     adjacent_houses = []
     if (x > 0):
@@ -74,10 +66,10 @@ def main():
     total_path.append(sp)
 
     n = int(input("How many houses you want to go through "))
-    a = n
-    if a < 25:
-        for i in range(n - 1):
-            if n < 25:
+    
+    if n <= 25:
+        for i in range(n-1):
+            if n-1 < 25:
                 candy_val = []
                 neighbor_location = []
                 your_neighbor = get_neighbor(x, y)  # list location of neighbors
@@ -87,17 +79,28 @@ def main():
                     # print("n " + str(neighbor))
                     candy_val.append(matrix[neighbor[0]][neighbor[1]].get_candy())  # access the value of each location
                 print("C " + str(candy_val))
-                for i in your_neighbor:
-                    if i in total_path:
-                        your_neighbor.remove(i)
-                        candy_val = []
-                        for i in range(len(your_neighbor)):
-                            neighbor = your_neighbor[i]  # [(x, y), (x, y), (x, y)]
-                            candy_val.append(matrix[neighbor[0]][neighbor[1]].get_candy())  # access the value of each location
+                print("Path " + str(total_path))
+                for i in range(len(your_neighbor)):
+                    for i in your_neighbor:
+                        if i in total_path:
+                            your_neighbor.remove(i)
+                            if len(your_neighbor) == 0:
+                                print(your_neighbor)
+                                print("stuck")
+                                
+                            if len(your_neighbor) > 0:
+                                candy_val = []
+                                for i in range(len(your_neighbor)):
+                                    neighbor = your_neighbor[i]  # [(x, y), (x, y), (x, y)]
+                                    candy_val.append(matrix[neighbor[0]][neighbor[1]].get_candy())  # access the value of each location
+            
+                            
+
+            if len(your_neighbor) > 0:
                 print("BBB " + str(your_neighbor))
                 print("C " + str(candy_val))
                 print("\n")
-
+                
                 highest_candy = max(candy_val)
                 nei_location = (-1, -1)
                 for i in range(len(your_neighbor)):
@@ -107,23 +110,29 @@ def main():
                 x, y = nei_location
                 new_location = (x, y)
                 total_path.append(new_location)
-            print("New location: " + str(new_location))
-            print("Total path: " + str(total_path))
-            print("Most candy = " + str(highest_candy))
-            print("total candy: " + str(sum(total_candy)))
-            print("\n")
-            
-        # calculate average candy of neighbor
-        neighbor_average = 0
-        for i in matrix:
-            for j in i:
-                neighbor_average += j.get_candy()
+                                  
+                print("New location: " + str(new_location))
+                print("Total path: " + str(total_path))
+                print("Most candy = " + str(highest_candy))
+                print("total candy: " + str(sum(total_candy)))
+                print("\n")
+                
+                # calculate average candy of neighbor
+                neighbor_average = 0
+                for i in matrix:
+                    for j in i:
+                        neighbor_average += j.get_candy()
 
-        # average candy of the neighborhood
-        print(average(neighbor_average))
-        print("Your average: " + str((sum(total_candy)) / (n+1)))
-    else:
-        print("Our neighborhood do not have enough houses you want to go")
+                # average candy of the neighborhood
+                print(average(neighbor_average))
+                print("Your average: " + str((sum(total_candy)) / (n)))
+            else:
+                print("stuck")
+                break
+    
+        else:
+            
+              print("Our neighborhood do not have enough houses you want to go")
 
 
 if __name__ == "__main__":
