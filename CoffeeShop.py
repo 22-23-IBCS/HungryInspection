@@ -70,6 +70,7 @@ def main():
 
 
     total = JT.calcPrice()
+    print(JT)
     print("The total price is {} dollars. Thanks for coming. \nDon't forget to rate us 5 stars.".format(total))
     
         
