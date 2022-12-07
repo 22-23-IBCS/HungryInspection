@@ -1,4 +1,4 @@
-
+import time
 import random
 
 # Python program for implementation of MergeSort
@@ -109,6 +109,7 @@ def mergeSort2(arr):
             arr[k] = R[j]
             j += 1
             k += 1
+
  
 def printList(arr):
     for i in range(len(arr)):
@@ -119,17 +120,21 @@ def printList(arr):
  
 
 def main():
-    # Driver code to test above
+    # Driver code 1
     arr1 = [12, 11, 13, 5, 6, 7]
     n = len(arr1)
     print("Given array1 is")
     for i in range(n):
         print("%d" % arr1[i],end=" ")
      
+    start1 = time.time()
     mergeSort1(arr1, 0, n-1)
+    stop1 = time.time()
     print("\n\nSorted array1 is")
     for i in range(n):
         print("%d" % arr1[i],end=" ")
+    print("\n" + "Time difference :" + str(stop1 - start1))
+        
 
     print("\n")
 
@@ -138,16 +143,27 @@ def main():
     print("Given array2 is", end="\n")
     printList(arr2)
     print("\n")
+    start2 = time.time()
     mergeSort2(arr2)
+    stop2 = time.time()
     print("Sorted array2 is: ", end="\n")
     printList(arr2)
+    print("\n" + "Time difference :" + str(stop2 - start2))
+
     print("\n")
 
-    #Class code
+
+    '''Class code'''
     L = [random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100), random.randint(0, 100)]
+    L = []
+    n = random.randint(0, 500)
+    for i in range(n):
+        L.append(random.randint(0, n))
+            
     print("Given sort: " + str(L))
     #sort with Bubble sort
 
+    start = time.time()    
     for i in range(len(L)):
         for j in range(len(L) - 1):
             if L[j] > L[j+1]:
@@ -155,21 +171,22 @@ def main():
                 temp = L[j]
                 L[j] = L[j+1]
                 L[j+1] = temp
+    stop = time.time()
+    dif = stop - start
+    print("Time passed: " + str(dif))
     print("Sorted Sort: " + str(L) + "\n")
 
 
-    #random sort
+
+
+    '''random sort '''
+    count = 0
     N = [1, 43, 17, 2, 10, 30, 23, 100, 8, 12, 0]
     print("Original List: " + str(N))
     while True:
         N = [1, 43, 17, 2, 10, 30, 23, 100, 8, 12, 0]
         M = []
-        '''
-        #create a list with a random arrangment of the elements in the previous
-        for i in range(len(N) - 1):
-            randomPos = randint(0, len(N) - 1)
-            i = randomPos
-            M.append(N[i])'''
+        start3 = time.time()
         for i in range(len(N) - 1):
             M.append(random.choice(N))
             for i in M:
@@ -178,16 +195,18 @@ def main():
                 else:
                     continue
                 
-        print("New List: " + str(M))
         isSorted = True
         for i in range(len(M) - 1):
             if M[i] > M[i+1]:
+                count += 1
                 isSorted = False
                 
         if isSorted == True:
+            stop3 = time.time()
             print("Sorted List " + str(M))
+            print("Time difference: " + str(stop3 - start3))
+            print("Count :" + str(count))
             break
-
 
 if __name__=="__main__":
     main()
