@@ -20,6 +20,7 @@ def main():
             window.win.close()
             history = history_window.create_history_win()
             history.create_history_button()
+            history.show_drills()
             m1 = history.get_location()
             if history.back.isClicked(m1):
                 history.win.close()
@@ -39,13 +40,17 @@ def main():
                 edit_win.win.close()
                 add_win = add_window.create_add_win()
                 add_win.create_add_button()
-                add_win.input_box() #if this running the is Clicked function is not working
+                add_win.input_box1()
+                add_win.input_box2()
+                add_win.input_box3()
+                add_win.input_box4()
                 m2 = add_win.get_location()
-                if add_win.back.isClicked(m2):
+                if add_win.add.isClicked(m2):
                     add_win.win.close()
-                    window = main_screen()
-                    m = window.get_location()
-
+                    add_win.check_input()
+                    add_win.save()
+                    add_win.update_storage()
+                    print(add_win.show_storage())
 
         if window.offense.isClicked(m) or window.defense.isClicked(m) or window.balance.isClicked(m):
             window.win.close()
@@ -56,8 +61,6 @@ def main():
                 board.win.close()
                 window = main_screen()
                 m = window.get_location()
-
-
 
 
 if __name__ == "__main__":
