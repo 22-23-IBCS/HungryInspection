@@ -1,13 +1,14 @@
 from graphics import *
 import Button as bt
-from tkinter import messagebox as msg
+from tkinter import messagebox as msg, Label
+import json
 
 
 # super class
 class Window:
     def __init__(self):
         self.win = GraphWin("Soccer Training Generator", 1000, 700)
-        background = Image(Point(500, 350), "background.png")
+        background = Image(Point(500, 350), "background2.png")
         background.draw(self.win)
 
     def create_button(self, color, text, center, size):
@@ -35,8 +36,9 @@ class main_window(Window):
         self.defense = self.create_button("light gray", "Defence", Point(100, 650), 85)
         self.offense = self.create_button("light gray", "Offense", Point(900, 650), 85)
         self.balance = self.create_button("light gray", "Balance", Point(480, 650), 85)
-        self.edit = self.create_button("light gray", "Drills/ Edit", Point(60, 50), 50)
-        self.history = self.create_button("light gray", "History", Point(160, 50), 50)
+        self.edit = self.create_button("light gray", "Edit", Point(60, 50), 50)
+        self.drills = self.create_button("light gray", "Drills", Point(160, 50), 50)
+        self.history = self.create_button("light gray", "History", Point(260, 50), 50)
 
 
 class add_window(Window):
@@ -44,7 +46,7 @@ class add_window(Window):
         super().__init__()
         self.storage = {'Drill: ': "",
                         'Intensity Rate: ': "",
-                        'Average Rate: ': "",
+                        'Difficulty Rate: ': "",
                         'Type: ': " "
                         }
 
@@ -63,7 +65,6 @@ class add_window(Window):
         self.text1.setSize(18)
         self.text1.setTextColor("black")
         self.text1.draw(self.win)
-
 
     def input_box2(self):
         self.drill_name2 = Entry(Point(800, 500), 30)
@@ -90,34 +91,65 @@ class add_window(Window):
         self.text4.draw(self.win)
 
     def check_input(self):
-        drill = self.drill_name1
-        if drill.getText() == "":
+        if self.drill_name1.getText() == "" and self.drill_name2.getText() == "" and self.drill_name3.getText() == "" and self.drill_name4.getText() == "":
             msg.showerror("Error", "Empty Box")
         else:
             msg.showinfo("Drills", "Drill is Added ")
 
     def save(self):
-        drill = self.drill_name1.getText()
-        with open('drills.txt', 'a') as f:
-            f.write('\n' + drill + '\n')
-        return drill
-
-    def update_storage(self):
-        l = (self.drill_name1.getText(), self.drill_name2.getText(), self.drill_name3.getText(), self.drill_name4.getText())
+        l = (
+        self.drill_name1.getText(), self.drill_name2.getText(), self.drill_name3.getText(), self.drill_name4.getText())
         i = 0
         for k, v in self.storage.items():
             value = l[i]
             self.storage[k] = value
-            i+=1
-        return self.storage
+            i += 1
+        with open('drills.txt', 'a') as f:
+            json.dump(self.storage, f)
+            f.write('\n')
 
-    def show_storage(self):
-        return list(self.storage.items())
 
+class delete_window(Window):
+    def __init__(self):
+        super().__init__()
 
-class delete_window(Window):  # Work on this class
+    @staticmethod
+    def create_delete_win():
+        return delete_window()
+
     def delete_drill(self):
         pass
+
+
+class all_drills_window(Window):
+    def __init__(self):
+        super().__init__()
+
+    @staticmethod
+    def create_all_drills_win():
+        return all_drills_window()
+
+    def create_all_drills_button(self):
+        self.open = self.create_button("light gray", "File", Point(850, 300), 50)
+        self.back = self.create_button("red", "Back", Point(850, 400), 50)
+
+    def show_drills(self):
+        with open('drills.txt', 'r') as f:
+            drills = []
+            for line in f:
+                drill = json.loads(line)
+                drills.append(drill)
+
+        drills_text = "All Drills:\n\n"
+        for drill in drills:
+            name = drill["Drill: "]
+            drill_type = drill["Type: "]
+            drills_text += f"{name} - {drill_type}\n"
+
+        text = Text(Point(500, 300), drills_text)
+        text.setSize(20)
+        text.setTextColor("Black")
+        text.draw(self.win)
 
 
 class board_window(Window):
@@ -133,6 +165,7 @@ class board_window(Window):
         self.back = self.create_button("red", "Back", Point(850, 400), 50)
 
 
+
 class edit_window(Window):
     def __init__(self):
         super().__init__()
@@ -145,7 +178,7 @@ class edit_window(Window):
         self.back = self.create_button("white", "Back", Point(850, 100), 50)
         self.add = self.create_button("white", "add", Point(850, 300), 50)
         self.delete = self.create_button("white", "delete", Point(850, 400), 50)
-        self.show = self.create_button("white", "storage", Point(850,500), 50)
+        self.show = self.create_button("white", "storage", Point(850, 500), 50)
 
 
 class history_window(Window):
@@ -159,9 +192,9 @@ class history_window(Window):
     def create_history_button(self):
         self.back = self.create_button("red", "Back", Point(850, 650), 50)
 
-    def show_drills(self):
+    def show_file(self):
         drill_file = open('drills.txt', 'r')
         self.text = Text(Point(500, 100), str(drill_file.read()))
-        self.text.setSize(15)
+        self.text.setSize(20)
         self.text.setTextColor("white")
         self.text.draw(self.win)

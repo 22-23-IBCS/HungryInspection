@@ -1,0 +1,9 @@
+{"Drill: ": "Power Shot", "Intensity Rate: ": "4", "Difficulty Rate: ": "3", "Type: ": "O"}
+{"Drill: ": "Curve Shot", "Intensity Rate: ": "3", "Difficulty Rate: ": "5", "Type: ": "O"}
+{"Drill: ": "Header", "Intensity Rate: ": "4", "Difficulty Rate: ": "3", "Type: ": "B"}
+{"Drill: ": "100m x 5", "Intensity Rate: ": "5", "Difficulty Rate: ": "3", "Type: ": "B"}
+{"Drill: ": "Sliding Tackle", "Intensity Rate: ": "4", "Difficulty Rate: ": "4", "Type: ": "D"}
+{"Drill: ": "Standing Tackle", "Intensity Rate: ": "3", "Difficulty Rate: ": "3", "Type: ": "D"}
+{"Drill: ": "Sucide", "Intensity Rate: ": "5", "Difficulty Rate: ": "1", "Type: ": "B"}
+{"Drill: ": "5 laps x 3 set", "Intensity Rate: ": "4", "Difficulty Rate: ": "1", "Type: ": "B"}
+{"Drill: ": "Vertical Jump", "Intensity Rate: ": "5", "Difficulty Rate: ": "2", "Type: ": "B"}
