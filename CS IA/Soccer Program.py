@@ -6,9 +6,12 @@ def main_screen():
     window.create_main_button()
     return window
 
+def edit_win():
+    edit_win = edit_window.create_edit_win()
+    edit_win.create_edit_button()
+    return edit_win
 
 def main():
-
     window = main_screen()
     m = window.get_location()
 
@@ -30,15 +33,14 @@ def main():
 
         if window.edit.isClicked(m):
             window.win.close()
-            edit_win = edit_window.create_edit_win()
-            edit_win.create_edit_button()
-            m2 = edit_win.get_location()
-            if edit_win.back.isClicked(m2):
-                edit_win.win.close()
+            edit = edit_win()
+            m2 = edit.get_location()
+            if edit.back.isClicked(m2):
+                edit.win.close()
                 window = main_screen()
                 m = window.get_location()
-            if edit_win.add.isClicked(m2):
-                edit_win.win.close()
+            if edit.add.isClicked(m2):
+                edit.win.close()
                 add_win = add_window.create_add_win()
                 add_win.create_add_button()
                 add_win.input_box1()
@@ -50,6 +52,27 @@ def main():
                     add_win.win.close()
                     add_win.check_input()
                     add_win.save()
+                if add_win.back.isClicked(m3):
+                    add_win.win.close()
+                    edit = edit_win()
+                    m2 = edit.get_location()
+            if edit.delete.isClicked(m2):
+                edit.win.close()
+                delete_win = delete_window.create_delete_win()
+                delete_win.create_delete_button()
+                delete_win.upload()
+                delete_win.delete_box()
+                m5 = delete_win.get_location()
+                if delete_win.delete.isClicked(m5):
+                    delete_win.check_input2()
+                    delete_win.delete_drill()
+                    delete_win.win.close()
+
+
+
+
+
+
 
         if window.drills.isClicked(m):
             window.win.close()
